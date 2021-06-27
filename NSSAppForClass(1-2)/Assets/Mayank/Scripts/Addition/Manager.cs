@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Manager : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class Manager : MonoBehaviour
     [HideInInspector]public int flag = 1;
     [HideInInspector]public int flag1 = 1;
     private float Delay = 0.5f;
+    public Image Calc;
+    public Sprite correct;
+    public Sprite wrong;
+
 
     public void show(int rnd1, int rnd2, int value)
     {
@@ -29,6 +34,7 @@ public class Manager : MonoBehaviour
     }
     IEnumerator DelayCorrect()
     {
+        Calc.sprite = correct;
         Correct.SetActive(true);
         yield return new WaitForSeconds(Delay);
         Correct.SetActive(false);
@@ -36,6 +42,7 @@ public class Manager : MonoBehaviour
 
     IEnumerator DelayWrong()
     {
+        Calc.sprite = wrong;
         Wrong.SetActive(true);
         yield return new WaitForSeconds(Delay);
         Wrong.SetActive(false);

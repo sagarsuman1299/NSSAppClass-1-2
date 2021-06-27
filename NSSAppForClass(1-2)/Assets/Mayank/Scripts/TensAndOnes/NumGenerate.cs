@@ -17,19 +17,29 @@ public class NumGenerate : MonoBehaviour
     private float Delay = 0.5f;
     int tens;
     int units;
+    public Image Calc;
+    public Sprite correct;
+    public Sprite wrong;
+    //public Image[] obj;
+    //public Sprite[] sprite1;
+    //public Sprite[] sprite2;
+
     public void random()
     {
-        rnd = Random.Range(0, 99);
+        rnd = Random.Range(1, 100);
         units = rnd % 10;
         tens = rnd / 10;
         Debug.Log("Tens "+tens);
         Debug.Log("Units"+ units);
         flag = 0;
         flag2 = 0;
-        Panel1[tens].SetActive(true);
-        Panel2[units].SetActive(true);
+        //SpriteChanger();
+        for (int i =0; i<tens; i++)
+            Panel1[i].SetActive(true);
+        for (int j = 0; j < units; j++)
+            Panel2[j].SetActive(true);
         randomnumber.text = "The number is: " + rnd;
-        Enter.text = "Enter Tens place";
+        Enter.text = "How many Tens are there?";
     }
     // Start is called before the first frame update
     void Start()
@@ -46,9 +56,10 @@ public class NumGenerate : MonoBehaviour
     {
         if ((flag == 1) && (flag2 ==1))
         {
-            Panel1[tens].SetActive(false);
-            Panel2[units].SetActive(false);
-
+            for (int i = 0; i < tens; i++)
+                Panel1[i].SetActive(false);
+            for (int j = 0; j < units; j++)
+                Panel2[j].SetActive(false);
             random();
         }
     }
@@ -61,7 +72,7 @@ public class NumGenerate : MonoBehaviour
 
             Debug.Log("inside tens");
             StartCoroutine(DelayCorrect());
-            Enter.text = "Enter Units place";
+            Enter.text = "How many Ones are there?";
             flag = 1;
         }
         else
@@ -87,10 +98,21 @@ public class NumGenerate : MonoBehaviour
         }
     }
 
+    /*
+    void SpriteChanger()
+    {
+        int r = Random.Range(0, sprite1.Length);
+        for (int i = 0; i<9 ; i++)
+        {
+            obj[i].sprite = sprite1[r];
+            obj[i+9].sprite = sprite2[r];
+        }
+    }
+    */
 
     IEnumerator DelayCorrect()
     {
-        Debug.Log("Inside Delay");
+        Calc.sprite = correct;
 
         Correct.SetActive(true);
         yield return new WaitForSeconds(Delay);
@@ -100,7 +122,7 @@ public class NumGenerate : MonoBehaviour
 
     IEnumerator DelayWrong()
     {
-        Debug.Log("Inside Delay");
+        Calc.sprite = wrong;
         Wrong.SetActive(true);
         yield return new WaitForSeconds(Delay);
         Debug.Log("Inside Delay");
