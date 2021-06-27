@@ -10,9 +10,12 @@ public class Buttons : MonoBehaviour
     public int flag;
     public Manager manage;
     Text fortxt;
+
+   
    
     public void Etext()
     {
+        
         fortxt = text.GetComponent<Text>();
         //Debug.Log(fortxt.text);
        // Debug.Log(num1.rnd );
