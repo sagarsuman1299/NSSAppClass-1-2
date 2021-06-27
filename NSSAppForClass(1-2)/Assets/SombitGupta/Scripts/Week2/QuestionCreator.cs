@@ -25,7 +25,7 @@ public class QuestionCreator : MonoBehaviour
 
     void SetQuestion(int panelIndex, int optionIndex)
     {
-        questionText.GetComponent<Text>().text = "Select the one on the right which is " + attributes[panelIndex*2 + optionIndex] + " of the two: ";
+        questionText.GetComponent<Text>().text = "Select the one on the right which is " + attributes[(panelIndex % 4) * 2 + optionIndex] + " of the two: ";
         answerText.GetComponent<Text>().text = "";
     }
 
