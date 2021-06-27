@@ -184,7 +184,6 @@ public class Arrange_num_control : MonoBehaviour
             }
         }
 
-        Debug.Log(Count);
     }
 
     public void Checker()
