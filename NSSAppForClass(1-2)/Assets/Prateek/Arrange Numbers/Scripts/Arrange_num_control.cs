@@ -64,7 +64,7 @@ public class Arrange_num_control : MonoBehaviour
     {
         Random_Num = UnityEngine.Random.Range(2, 10);                                           //Generate a random number, this will decide how many numbers the player has to arrange
         
-        int SpriteID = UnityEngine.Random.Range(1, 4);
+        int SpriteID = UnityEngine.Random.Range(0, 4);
 
         for (int i = 0; i < 9; i++)
         {

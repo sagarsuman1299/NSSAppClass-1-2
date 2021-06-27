@@ -229,16 +229,34 @@ public class Count_Leaves : MonoBehaviour
     }
     public void Press0()
     {
-        if(count < 2)
+        if(Generated == 100)
         {
-            textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 0.ToString();
-            count += 1;
+            if(count < 3)
+            {
+                textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 0.ToString();
+                count += 1;
+            }
+
+            if(count == 3)
+            {
+                WinCheck();
+            }
+        }
+        else
+        {
+            if(count < 2)
+            {
+                textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 0.ToString();
+                count += 1;
+            }
+
+            if(count == 2)
+            {
+                WinCheck();
+            }
         }
 
-        if(count == 2)
-        {
-            WinCheck();
-        }
+        
     }
 
     public void Erase()
