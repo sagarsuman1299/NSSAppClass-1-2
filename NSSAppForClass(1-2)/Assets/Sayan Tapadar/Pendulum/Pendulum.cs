@@ -10,7 +10,7 @@ public class Pendulum : MonoBehaviour
     public int total;
 
 
-    void Start()
+    public void Start()
     {
         anim = gameObject.GetComponent<Animator>();
 
@@ -31,9 +31,9 @@ public class Pendulum : MonoBehaviour
         for (int i = 1; i <= total; i++)
         {
             anim.SetTrigger("osc");
-            Debug.Log("Began");
+            //Debug.Log("Began");
             yield return new WaitForSeconds(waitTime);
-            Debug.Log("End");
+            //Debug.Log("End");
         }
     }
 }

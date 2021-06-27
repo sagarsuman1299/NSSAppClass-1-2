@@ -6,7 +6,6 @@ using TMPro;
 
 public class MouseDrag : MonoBehaviour, IPointerDownHandler,IBeginDragHandler,IDragHandler
 {
-    //private RectTransform rt;
     public TextMeshProUGUI tmp;
     public GameObject answer;
     public GetNextQues gnq;
@@ -25,34 +24,19 @@ public class MouseDrag : MonoBehaviour, IPointerDownHandler,IBeginDragHandler,ID
     {
         Vector2 v = eventData.position;
         lr.SetPosition(0, Correct(v));
-        Debug.Log("Begin Drag");
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("Dragging");
         Vector2 v = eventData.position;
         lr.SetPosition(1, Correct(v));
-        //rt.anchoredPosition += eventData.delta;
+        
     }
-
-    /*public void OnEndDrag(PointerEventData eventData)
-    {
-        Debug.Log("End Drag");
-        Vector2 v=eventData.position;
-        //Debug.Log(v);
-
-        if (eventData.pointerDrag == answer)
-        {
-            lr.SetPosition(1, Correct(v));
-        }
-        else
-            lr.positionCount = 1;
-    }*/
 
     public void DragStop(PointerEventData eventData,GameObject go)
     {
         Vector2 v = eventData.position;
+        Debug.Log(go);
         if (go == answer)
         {
             lr.SetPosition(1, Correct(v));

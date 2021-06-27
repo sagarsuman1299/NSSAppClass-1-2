@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
 
 public class CheckValue : MonoBehaviour
 {
     public Pendulum pp;
     public TextMeshProUGUI tmp;
+    public Text txt;
 
     string ans;
 
@@ -18,20 +20,19 @@ public class CheckValue : MonoBehaviour
 
     public void check(string str)
     {
-        if (str == ((pp.total + 1) + ""))
+        if (str == ((pp.total) + ""))
         {
-            Debug.Log("yayy");
             tmp.text = "";
             ans= "CORRECT";
-            StartCoroutine("showRes");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            StartCoroutine("showCorrect");
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         else
         {
             tmp.text = "";
             ans= "INCORRECT";
+            txt.text = "";
             StartCoroutine("showRes");
-            Debug.Log("no");
         }
     }
 
@@ -40,5 +41,14 @@ public class CheckValue : MonoBehaviour
         tmp.text = ans;
         yield return new WaitForSeconds(2);
         tmp.text = "";
+    }
+
+    IEnumerator showCorrect()
+    {
+        tmp.text = ans;
+        yield return new WaitForSeconds(2);
+        tmp.text = "";
+        txt.text = "";
+        pp.Start();
     }
 }

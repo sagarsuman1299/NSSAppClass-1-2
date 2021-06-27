@@ -8,7 +8,6 @@ public class EndDraw : MonoBehaviour, IDropHandler
     //public MouseDrag md;
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("Answer");
         Debug.Log(eventData.pointerDrag);
         GameObject go = eventData.pointerDrag;
         MouseDrag md=go.GetComponent<MouseDrag>();
