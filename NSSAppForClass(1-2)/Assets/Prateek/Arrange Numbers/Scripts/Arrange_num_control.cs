@@ -198,6 +198,7 @@ public class Arrange_num_control : MonoBehaviour
         {
             if ((Random_Num * (Random_Num - 1) / 2) == Count)
             {
+                WrongCount = 0;
                 Winner.SetActive(true);
                 StartCoroutine(ResetQues());
             }

@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Count_Leaves : MonoBehaviour
 {
-    public GameObject[] branches;
-    public GameObject[] leaves1;
-    public GameObject[] leaves2;
-    public GameObject[] EmptyObjs;
+    public GameObject[] branches;       //Individual branches, not the empty objects
+    public GameObject[] leaves1;        //First 50 leaves from the bottom, go by the order of the empty objects
+    public GameObject[] leaves2;        //Rest 50
+    public GameObject[] EmptyObjs;      ///IMP: B1 and B2 which are always active have been put in last 2 indeces as they were later additions and I'm lazy to change the whole code///
 
-    public GameObject textAr;
+    public GameObject textAr;           //txt area to print input
+    public GameObject winTxt;           //shows correctness of ans
 
-    public GameObject winImg;
-    public GameObject winTxt;
-
-    int count = 0;
+    int count = 0;                      //Used to know how many digits have been entered
+    int WrongCount = 0;                 //Checks how many times the user has provided wrong answer
+    bool Routine_check = true;          //Its to keep the code from executing over and over again while the couroutine waits
 
     int Generated;
     // Start is called before the first frame update
@@ -23,12 +23,8 @@ public class Count_Leaves : MonoBehaviour
         StartFun();        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    ////////////// Starting fns begin ///////////////
+    ////////////////////////////////////////////////
     public void StartFun()
     {
         count = 0;
@@ -44,6 +40,9 @@ public class Count_Leaves : MonoBehaviour
 
     public void BranchEnabler()
     {
+        EmptyObjs[8].SetActive(true);
+        EmptyObjs[9].SetActive(true);
+
         if(Generated >= 21)
         {
             EmptyObjs[0].SetActive(true);
@@ -109,7 +108,12 @@ public class Count_Leaves : MonoBehaviour
             }
         }
     }
+    ////////////// Starting fns end ///////////////
+    ////////////////////////////////////////////////
 
+
+    ////////////// For pressing the diff buttons on keypad begin ///////////////
+    ////////////////////////////////////////////////////////////////////////////
     public void Press1()
     {
         if(count < 2)
@@ -264,29 +268,53 @@ public class Count_Leaves : MonoBehaviour
         textAr.GetComponent<UnityEngine.UI.Text>().text = "";
         count = 0;
     }
+    ////////////// For pressing the diff buttons on keypad end ///////////////
+    //////////////////////////////////////////////////////////////////////////
 
+
+    ////////////// Check the provided input against generated num ///////////////
+    /////////////////////////////////////////////////////////////////////////////
     public void WinCheck()
     {
-        if(int.Parse(textAr.GetComponent<UnityEngine.UI.Text>().text) == Generated)
+        if(Routine_check)
         {
-            winTxt.GetComponent<UnityEngine.UI.Text>().text = "CORRECT";
-            StartCoroutine(ResetQues());
-        }
-        else
-        {
-            winTxt.GetComponent<UnityEngine.UI.Text>().text = "INCORRECT";
-            StartCoroutine(ResetQues());
+            if (int.Parse(textAr.GetComponent<UnityEngine.UI.Text>().text) == Generated)
+            {
+                WrongCount = 0;
+                winTxt.GetComponent<UnityEngine.UI.Text>().text = "RIGHT ANSWER!!";
+                StartCoroutine(ResetQuesCorrect());
+            }
+            else
+            {
+                WrongCount += 1;
+
+                if (WrongCount == 3)
+                {
+                    WrongCount = 0;
+                    winTxt.GetComponent<UnityEngine.UI.Text>().text = "WRONG ANSWER!!";
+                    StartCoroutine(ResetQuesWrong());
+                }
+                else
+                {
+                    winTxt.GetComponent<UnityEngine.UI.Text>().text = "WRONG! TRY AGAIN";
+                    StartCoroutine(RetryQues());
+                }
+            }
         }
     }
 
-    IEnumerator ResetQues()
+    IEnumerator ResetQuesCorrect()
     {
-        for(int i = 2; i < 10; i++)
+        Routine_check = false;
+
+        yield return new WaitForSeconds(2);
+
+        for (int i = 2; i < 10; i++)
         {
             branches[i].SetActive(false);
         }
 
-        for(int i = 0; i < 8; i++)
+        for(int i = 0; i < 10; i++)
         {
             EmptyObjs[i].SetActive(false);
         }
@@ -297,7 +325,56 @@ public class Count_Leaves : MonoBehaviour
             leaves2[j].SetActive(false);
         }
 
-        yield return new WaitForSeconds(2);
+        Routine_check = true;
+
         StartFun();
+    }
+
+    IEnumerator ResetQuesWrong()
+    {
+        Routine_check = false;
+
+        yield return new WaitForSeconds(2);
+
+        textAr.GetComponent<UnityEngine.UI.Text>().text = Generated.ToString();
+        winTxt.GetComponent<UnityEngine.UI.Text>().text = "RIGHT ANSWER IS:";
+
+        StartCoroutine(DisplayCorrect());
+
+        Routine_check = true;
+    }
+
+    IEnumerator DisplayCorrect()
+    {
+        yield return new WaitForSeconds(2);
+
+        for (int i = 2; i < 10; i++)
+        {
+            branches[i].SetActive(false);
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            EmptyObjs[i].SetActive(false);
+        }
+
+        for (int j = 0; j < 40; j++)
+        {
+            leaves1[j].SetActive(false);
+            leaves2[j].SetActive(false);
+        }
+
+        StartFun();
+    }
+
+    IEnumerator RetryQues()
+    {
+        Routine_check = false;
+
+        yield return new WaitForSeconds(2);
+        Erase();
+        winTxt.GetComponent<UnityEngine.UI.Text>().text = "";
+
+        Routine_check = true;
     }
 }
