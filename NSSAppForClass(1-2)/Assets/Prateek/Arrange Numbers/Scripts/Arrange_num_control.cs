@@ -11,9 +11,13 @@ public class Arrange_num_control : MonoBehaviour
     public GameObject[] ques;                   //Array to hold the text boxes containing questions
     public GameObject Winner;                   //Object enabled on correct ans
     public GameObject Loser;                    //Object enabled on losing
+
     int Random_Num;                             //Generated number
     int Count;                                  //Keeps count of correct ans
     int Check = 0;                              //Keeps count of snapped components
+    int WrongCount = 0;                         //To allow 3 tries
+    bool Routine_check = true;
+
     int[] Data_ques = new int[9];               //Array storing generated numbers
     Vector2[] Position_quesBox = new Vector2[9];        //Position vector array for question text boxes
     Vector2[] Position_ansSpace = new Vector2[9];       //Position vector array for Answer space images
@@ -58,7 +62,7 @@ public class Arrange_num_control : MonoBehaviour
     }
 
 
-    ////////// Startup functions /////////////
+    ////////// Startup functions start /////////////
     //////////////////////////////////////////
     public void Startingfn()
     {
@@ -132,7 +136,7 @@ public class Arrange_num_control : MonoBehaviour
 
     }
 
-    ////////// Startup functions /////////////
+    ////////// Startup functions end /////////////
     //////////////////////////////////////////
 
 
@@ -188,35 +192,81 @@ public class Arrange_num_control : MonoBehaviour
 
     public void Checker()
     {
-        if((Random_Num*(Random_Num-1)/2) == Count)
+        Check = 0;
+
+        if(Routine_check)
         {
-            Winner.SetActive(true);
-            StartCoroutine(ResetQues());
+            if ((Random_Num * (Random_Num - 1) / 2) == Count)
+            {
+                Winner.SetActive(true);
+                StartCoroutine(ResetQues());
+            }
+            else
+            {
+                WrongCount += 1;
+                if (WrongCount == 3)
+                {
+                    Loser.GetComponent<UnityEngine.UI.Text>().text = "WRONG ANSWER!!";
+                    WrongCount = 0;
+                    Loser.SetActive(true);
+                    StartCoroutine(ResetQues());
+                }
+                else
+                {
+                    Loser.GetComponent<UnityEngine.UI.Text>().text = "WRONG! TRY AGAIN";
+                    Loser.SetActive(true);
+                    StartCoroutine(RetryQues());
+                }
+            }
         }
-        else
-        {
-            Loser.SetActive(true);
-            StartCoroutine(ResetQues());
-        }
+        
     }
 
     //////////// Refresh panel ////////////
     IEnumerator ResetQues()
     {
+        Routine_check = false;
         yield return new WaitForSeconds(2);
-        
-        for(int i = 0; i < 9; i++)
+        for (int i = 0; i < 9; i++)
         {
             ques[i].transform.position = Initial_Pos_ans[i];
 
             Ans_space[i].SetActive(false);
             ques[i].SetActive(false);
-            Winner.SetActive(false);
-            Loser.SetActive(false);
 
             SnapState[i] = 0;
         }
+        Winner.SetActive(false);
+        Loser.SetActive(false);
+
+        Routine_check = true;
 
         Startingfn();
+    }
+
+    //////////// Retry question ///////////
+    IEnumerator RetryQues()
+    {
+        Routine_check = false;
+        yield return new WaitForSeconds(2);
+        Loser.SetActive(false);
+        
+        for (int i = 0; i < 9; i++)
+        {
+            ques[i].transform.position = Initial_Pos_ans[i];
+            SnapState[i] = 0;
+        }
+
+        Routine_check = true;
+    }
+
+    /////////// Reset button /////////////
+    public void Resetfn()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            ques[i].transform.position = Initial_Pos_ans[i];
+            SnapState[i] = 0;
+        }
     }
 }
