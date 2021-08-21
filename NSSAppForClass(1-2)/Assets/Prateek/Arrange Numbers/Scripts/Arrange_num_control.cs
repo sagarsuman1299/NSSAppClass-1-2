@@ -1,30 +1,31 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Arrange_num_control : MonoBehaviour
 {
     ////////////// Variables ////////////////////
     /////////////////////////////////////////////
-    public GameObject[] Ans_space;              //Array to hold the boxes where the answers have to be dragged
-    public GameObject[] ques;                   //Array to hold the text boxes containing questions
-    public GameObject Winner;                   //Object enabled on correct ans
-    public GameObject Loser;                    //Object enabled on losing
+    public GameObject[] Ans_spaceImg;               //Array to hold the boxes where the answers have to be dragged
+    public GameObject[] ques;                       //Array to hold the text boxes containing questions
+    public GameObject Winner;                       //Object enabled on correct ans
+    public GameObject Loser;                        //Object enabled on losing
 
-    int Random_Num;                             //Generated number
-    int Count;                                  //Keeps count of correct ans
-    int Check = 0;                              //Keeps count of snapped components
-    int WrongCount = 0;                         //To allow 3 tries
+    int Random_Num;                                 //Generated number
+    int Count;                                      //Keeps count of correct ans
+    int Check = 0;                                  //Keeps count of snapped components
+    int WrongCount = 0;                             //To allow 3 tries
     bool Routine_check = true;
 
-    int[] Data_ques = new int[9];               //Array storing generated numbers
+    int[] Data_ques = new int[9];                       //Array storing generated numbers
     Vector2[] Position_quesBox = new Vector2[9];        //Position vector array for question text boxes
     Vector2[] Position_ansSpace = new Vector2[9];       //Position vector array for Answer space images
-    Vector2[] Initial_Pos_ans = new Vector2[9];       //Position vector array for inital pos of answer space images, used when refreshing the panel
+    Vector2[] Initial_Pos_ans = new Vector2[9];         //Position vector array for initial pos of answer space images, used when refreshing the panel
     int[] SnapState = new int[9] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };     //Array to keep track of snap state of individual text areas, 1 => true
 
-    public Sprite[] Question_imgs;              //Sprite array containing images for answer spaces
+    public Sprite[] Question_imgs;                      //Sprite array containing images for answer spaces
 
 
     /////////////// Variables /////////////////////////
@@ -43,7 +44,6 @@ public class Arrange_num_control : MonoBehaviour
     private void Update()
     {
         Snapper();
-        PosArr();
 
         Check = 0;
 
@@ -57,6 +57,7 @@ public class Arrange_num_control : MonoBehaviour
 
         if(Check == Random_Num)
         {
+            Counter();
             Checker();
         }
     }
@@ -72,7 +73,7 @@ public class Arrange_num_control : MonoBehaviour
 
         for (int i = 0; i < 9; i++)
         {
-            Ans_space[i].GetComponent<UnityEngine.UI.Image>().sprite = Question_imgs[SpriteID];         //Generates sprite for Question space
+            Ans_spaceImg[i].GetComponent<UnityEngine.UI.Image>().sprite = Question_imgs[SpriteID];         //Generates sprite for Blank space
         }
 
         Objs_Enable();
@@ -87,7 +88,7 @@ public class Arrange_num_control : MonoBehaviour
         {
             for (int i = 4 - (Random_Num / 2); i <= 4 + (Random_Num / 2); ++i)
             {
-                Ans_space[i].SetActive(true);
+                Ans_spaceImg[i].SetActive(true);
                 ques[i].SetActive(true);
             }
         }
@@ -95,7 +96,7 @@ public class Arrange_num_control : MonoBehaviour
         {
             for (int i = i = 4 - (Random_Num / 2); i < 4 + (Random_Num / 2); ++i)
             {
-                Ans_space[i].SetActive(true);
+                Ans_spaceImg[i].SetActive(true);
                 ques[i].SetActive(true);
             }
         }
@@ -146,7 +147,7 @@ public class Arrange_num_control : MonoBehaviour
         for (int i = 0; i < 9; i++)
         {
             Position_quesBox[i] = ques[i].transform.position;
-            Position_ansSpace[i] = Ans_space[i].transform.position;
+            Position_ansSpace[i] = Ans_spaceImg[i].transform.position;
             SnapState[i] = 0;
         }
 
@@ -154,11 +155,11 @@ public class Arrange_num_control : MonoBehaviour
         {
             for(int j = 0; j < 9; j++)
             {
-                if((ques[i].activeSelf == true) && (Ans_space[j].activeSelf == true))
+                if((ques[i].activeSelf == true) && (Ans_spaceImg[j].activeSelf == true))
                 {
-                    if(Vector2.Distance(ques[i].transform.position, Ans_space[j].transform.position) <= 0.6f)
+                    if(Vector2.Distance(ques[i].transform.position, Ans_spaceImg[j].transform.position) <= 0.6f)
                     {
-                        ques[i].transform.position = Ans_space[j].transform.position;
+                        ques[i].transform.position = Ans_spaceImg[j].transform.position;
                         SnapState[i] = 1;
                     }
                 }
@@ -167,7 +168,7 @@ public class Arrange_num_control : MonoBehaviour
     }
 
     ////////// Checks answers ////////////
-    public void PosArr()
+    public void Counter()
     {       
         Count = 0;
 
@@ -177,9 +178,9 @@ public class Arrange_num_control : MonoBehaviour
             {
                 if (ques[i].activeSelf == true && ques[j].activeSelf == true)
                 {
-                    if((Data_ques[i] < Data_ques[j]) && (Position_quesBox[i].x < Position_quesBox[j].x))
+                    if ((Data_ques[i] < Data_ques[j]) && (Position_quesBox[i].x < Position_quesBox[j].x))
                     {
-                        if(SnapState[i] == 1 && SnapState[j] == 1)
+                        if (SnapState[i] == 1 && SnapState[j] == 1)
                         {
                             Count += 1;
                         }
@@ -187,7 +188,6 @@ public class Arrange_num_control : MonoBehaviour
                 }
             }
         }
-
     }
 
     public void Checker()
@@ -210,7 +210,7 @@ public class Arrange_num_control : MonoBehaviour
                     Loser.GetComponent<UnityEngine.UI.Text>().text = "WRONG ANSWER!!";
                     WrongCount = 0;
                     Loser.SetActive(true);
-                    StartCoroutine(ResetQues());
+                    StartCoroutine(AnsFinder());
                 }
                 else
                 {
@@ -232,7 +232,9 @@ public class Arrange_num_control : MonoBehaviour
         {
             ques[i].transform.position = Initial_Pos_ans[i];
 
-            Ans_space[i].SetActive(false);
+            Ans_spaceImg[i].GetComponentInChildren<UnityEngine.UI.Text>().text = " ";
+
+            Ans_spaceImg[i].SetActive(false);
             ques[i].SetActive(false);
 
             SnapState[i] = 0;
@@ -269,5 +271,46 @@ public class Arrange_num_control : MonoBehaviour
             ques[i].transform.position = Initial_Pos_ans[i];
             SnapState[i] = 0;
         }
+    }
+
+    //////////// Retry question ///////////
+    IEnumerator AnsFinder()
+    {
+        Routine_check = false;
+        yield return new WaitForSeconds(2);
+        Loser.GetComponent<UnityEngine.UI.Text>().text = "RIGHT ANSWER IS:";
+
+        int[] Result_arr = Data_ques;
+
+        for (int i = 0; i < 9; i++)
+        {
+            if (ques[i].activeSelf == true)
+            {
+                ques[i].GetComponent<UnityEngine.UI.Text>().text = " ";
+            }
+            else
+            {
+                Result_arr[i] = 0;
+            }
+        }
+
+        int numToRemove = 0;
+        Result_arr = Result_arr.Where(val => val != numToRemove).ToArray();
+
+        Array.Sort(Result_arr);
+
+        int t = 0;
+        for(int i = 0; i < 9; i++)
+        {
+            if(Ans_spaceImg[i].activeSelf == true)
+            {
+                Ans_spaceImg[i].GetComponentInChildren<UnityEngine.UI.Text>().text = Result_arr[t].ToString();
+                t++;
+            }
+        }
+
+        Routine_check = true;
+
+        StartCoroutine(ResetQues());
     }
 }
