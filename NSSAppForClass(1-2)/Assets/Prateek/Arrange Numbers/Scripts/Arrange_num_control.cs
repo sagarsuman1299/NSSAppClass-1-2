@@ -27,7 +27,6 @@ public class Arrange_num_control : MonoBehaviour
 
     public Sprite[] Question_imgs;                      //Sprite array containing images for answer spaces
 
-
     /////////////// Variables /////////////////////////
     ///////////////////////////////////////////////////
 

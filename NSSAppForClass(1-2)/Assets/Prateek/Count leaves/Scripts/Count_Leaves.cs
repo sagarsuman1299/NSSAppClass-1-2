@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Count_Leaves : MonoBehaviour
 {
+    ////////////// Variables ////////////////////
+    /////////////////////////////////////////////
     public GameObject[] branches;       //Individual branches, not the empty objects
     public GameObject[] leaves1;        //First 50 leaves from the bottom, go by the order of the empty objects
     public GameObject[] leaves2;        //Rest 50
@@ -17,6 +19,11 @@ public class Count_Leaves : MonoBehaviour
     bool Routine_check = true;          //Its to keep the code from executing over and over again while the couroutine waits
 
     int Generated;
+
+    /////////////// Variables /////////////////////////
+    ///////////////////////////////////////////////////
+    
+
     // Start is called before the first frame update
     void Start()
     {
