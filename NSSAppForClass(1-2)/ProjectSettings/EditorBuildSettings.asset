@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/NssApp1-2.unity
+    guid: e7d5634743db6fd41b631c4ed977825e
   m_configObjects: {}

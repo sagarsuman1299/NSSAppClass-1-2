@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Buttons : MonoBehaviour
+public class buttons : MonoBehaviour
 {
     public Num1 num1;
     public Num2 num2;
     public GameObject text;
     public int flag;
-    public Manager manage;
+    public manager manage;
     Text fortxt;
    
     public void Etext()

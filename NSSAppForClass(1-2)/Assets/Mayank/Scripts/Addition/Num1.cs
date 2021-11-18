@@ -7,7 +7,7 @@ public class Num1 : MonoBehaviour
 {
     public GameObject[] Panels;
     [HideInInspector] public int rnd;
-    public Manager script;
+    public manager script;
     public Text Number1;
     char temp;
 

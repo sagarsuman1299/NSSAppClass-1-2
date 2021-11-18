@@ -7,7 +7,7 @@ public class Num2 : MonoBehaviour
 {
     public GameObject[] Panels;
     [HideInInspector]public int rnd;
-    public Manager script2;
+    public manager script2;
 
     public void random()
     {
