@@ -13,7 +13,7 @@ public class CheckValue : MonoBehaviour
 
     string ans;
 
-    private void Start()
+    private void OnEnable()
     {
         tmp.text = "";
     }
@@ -49,6 +49,6 @@ public class CheckValue : MonoBehaviour
         yield return new WaitForSeconds(2);
         tmp.text = "";
         txt.text = "";
-        pp.Start();
+        pp.OnEnable();
     }
 }

@@ -10,7 +10,7 @@ public class Pendulum : MonoBehaviour
     public int total;
 
 
-    public void Start()
+    public void OnEnable()
     {
         anim = gameObject.GetComponent<Animator>();
 
