@@ -31,7 +31,7 @@ public class QuestionMaster : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         QuestionIndex = -1;
         SetQuestion();
@@ -49,6 +49,8 @@ public class QuestionMaster : MonoBehaviour
             temp = Random.Range(0, data.Length);
         } while (temp == QuestionIndex);
         QuestionIndex = temp;
+        ChoiceIndex = Random.Range(0, 2);
+
         Question.GetComponent<Text>().text = "Select the one who is ";
         if (ChoiceIndex == 0)
             Question.GetComponent<Text>().text += data[QuestionIndex].attributeA;

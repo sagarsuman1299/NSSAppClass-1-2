@@ -30,7 +30,7 @@ public class Arrange_num_control : MonoBehaviour
     /////////////// Variables /////////////////////////
     ///////////////////////////////////////////////////
 
-    private void Start()
+    private void OnEnable()
     {
         for (int i = 0; i < 9; i++)
         {

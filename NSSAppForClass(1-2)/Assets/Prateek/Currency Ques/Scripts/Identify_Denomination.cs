@@ -25,7 +25,7 @@ public class Identify_Denomination : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         Startfn();
     }
