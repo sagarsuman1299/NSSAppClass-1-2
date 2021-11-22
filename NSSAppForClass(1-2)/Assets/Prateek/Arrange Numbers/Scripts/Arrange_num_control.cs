@@ -37,7 +37,36 @@ public class Arrange_num_control : MonoBehaviour
             Initial_Pos_ans[i] = ques[i].transform.position;       //Taking the initial position of the text areas to reset them on refresh
         }
 
+        for (int i = 0; i < 9; i++)
+        {
+            SnapState[i] = 0;
+        }
+
         Startingfn();
+    }
+
+    private void OnDisable()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            ques[i].transform.position = Initial_Pos_ans[i];       //Setting initial pos back on disable
+        }
+        
+        WrongCount = 0;
+
+        for (int i = 0; i < 9; i++)
+        {
+            ques[i].transform.position = Initial_Pos_ans[i];
+
+            Ans_spaceImg[i].GetComponentInChildren<UnityEngine.UI.Text>().text = " ";
+
+            Ans_spaceImg[i].SetActive(false);
+            ques[i].SetActive(false);
+
+            SnapState[i] = 0;
+        }
+        Winner.SetActive(false);
+        Loser.SetActive(false);
     }
 
     private void Update()
@@ -66,7 +95,9 @@ public class Arrange_num_control : MonoBehaviour
     //////////////////////////////////////////
     public void Startingfn()
     {
-        Random_Num = UnityEngine.Random.Range(2, 10);                                           //Generate a random number, this will decide how many numbers the player has to arrange
+        Random_Num = UnityEngine.Random.Range(2, 10);                                                      //Generate a random number, this will decide how many numbers the player has to arrange
+
+        Debug.Log(Random_Num);
         
         int SpriteID = UnityEngine.Random.Range(0, 4);
 
