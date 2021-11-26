@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/NssApp1-2.unity
     guid: e7d5634743db6fd41b631c4ed977825e
+  - enabled: 0
+    path: Assets/Scenes/Test.unity
+    guid: 26e2465bd3af921489ffedf60e0d761b
   m_configObjects: {}

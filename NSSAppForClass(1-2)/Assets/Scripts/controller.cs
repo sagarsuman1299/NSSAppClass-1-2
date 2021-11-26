@@ -11,11 +11,16 @@ public class controller : MonoBehaviour
     public GameObject[] Class1Panels; //list of english,science,maths
     public GameObject[] Class2Panels;//list of english,science,maths
     public GameObject Background;
+    public GameObject exit_bttn;
     private int i;
 
-    void Update()
+    public void quit_app()
     {
+<<<<<<< Updated upstream
         
+=======
+        Application.Quit();
+>>>>>>> Stashed changes
     }
 
     public void DeActivateAll()
@@ -29,12 +34,14 @@ public class controller : MonoBehaviour
             i = 0;
             Mainmenu.SetActive(true);
             Class1SubjectList.SetActive(false);
+            exit_bttn.SetActive(true);
         }
         if(i==2)
         {
             i = 0;
             Mainmenu.SetActive(true);
             Class2SubjectList.SetActive(false);
+            exit_bttn.SetActive(true);
         }
  
         if(i==3 || i==4 || i==5)
@@ -79,12 +86,14 @@ public class controller : MonoBehaviour
         i = 1;
         Mainmenu.SetActive(false);
         Class1SubjectList.SetActive(true);
+        exit_bttn.SetActive(false);
     }
     public void Class2Screen()
     {
         i = 2;
         Mainmenu.SetActive(false);
         Class2SubjectList.SetActive(true);
+        exit_bttn.SetActive(false);
     }
 
     // Class 1 sub selection
