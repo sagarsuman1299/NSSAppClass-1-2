@@ -7,7 +7,7 @@ public class Num2 : MonoBehaviour
 {
     public GameObject[] Panels;
     [HideInInspector]public int rnd;
-    public manager script2;
+    public sum_manager script2;
 
     public void random()
     {
@@ -24,7 +24,7 @@ public class Num2 : MonoBehaviour
     {
         if (script2.flag == 1)
         {
-            Debug.Log("Flag2");
+           
             Panels[rnd].SetActive(false);
             script2.flag = 0;
             random();

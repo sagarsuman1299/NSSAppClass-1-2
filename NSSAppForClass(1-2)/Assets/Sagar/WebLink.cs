@@ -45,11 +45,11 @@ public class WebLink : MonoBehaviour
     }
     public void SombitFb()
     {
-        Application.OpenURL("https://www.facebook.com/search/top?q=iit%20kharagpur");
+        Application.OpenURL("https://www.facebook.com/sombit.gupta/");
     }
     public void SombitLn()
     {
-        Application.OpenURL("https://www.facebook.com/search/top?q=iit%20kharagpur");
+        Application.OpenURL("https://www.linkedin.com/in/sombit-gupta-7b6163227/");
     }
     public void SatyajeetFb()
     {
@@ -57,11 +57,11 @@ public class WebLink : MonoBehaviour
     }
     public void MayankLn()
     {
-        Application.OpenURL("https://www.facebook.com/search/top?q=iit%20kharagpur");
+        Application.OpenURL("https://github.com/mayank-baid");
     }
     public void MayankFb()
     {
-        Application.OpenURL("https://www.facebook.com/search/top?q=iit%20kharagpur");
+        Application.OpenURL("https://www.facebook.com/profile.php?id=100009172168518");
     }
     public void GufranLn()
     {

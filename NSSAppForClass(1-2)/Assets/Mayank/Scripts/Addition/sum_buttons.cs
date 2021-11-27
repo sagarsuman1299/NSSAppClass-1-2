@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class buttons : MonoBehaviour
+public class sum_buttons : MonoBehaviour
 {
     public Num1 num1;
     public Num2 num2;
     public GameObject text;
     public int flag;
-    public manager manage;
+    public sum_manager manage;
     Text fortxt;
    
     public void Etext()

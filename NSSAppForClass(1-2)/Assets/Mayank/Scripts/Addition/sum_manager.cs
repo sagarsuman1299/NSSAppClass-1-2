@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class manager : MonoBehaviour
+public class sum_manager : MonoBehaviour
 {
 
     public GameObject Correct;
@@ -22,17 +22,17 @@ public class manager : MonoBehaviour
         {
             flag = 1;
             flag1 = 1;
-            StartCoroutine(DelayCorrect());
+            StartCoroutine(sum_DelayCorrect());
         }
         else
 
         {
             flag = 0;
             flag1 = 0;
-            StartCoroutine(DelayWrong());
+            StartCoroutine(sum_DelayWrong());
         }
     }
-    IEnumerator DelayCorrect()
+    IEnumerator sum_DelayCorrect()
     {
         Calc.sprite = correct;
         Correct.SetActive(true);
@@ -40,7 +40,7 @@ public class manager : MonoBehaviour
         Correct.SetActive(false);
     }
 
-    IEnumerator DelayWrong()
+    IEnumerator sum_DelayWrong()
     {
         Calc.sprite = wrong;
         Wrong.SetActive(true);
