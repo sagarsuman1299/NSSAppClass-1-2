@@ -12,6 +12,7 @@ public class QuestionChoice : MonoBehaviour
 
     int panelIndex;
     int distIndex;                             //0 indicates nearer/nearest, and 1 indicates farther/farthest
+    int attempt;
 
     void Start()
     {
@@ -28,15 +29,29 @@ public class QuestionChoice : MonoBehaviour
 
     void AssessAnswer(int i)                                         //Assesses the question based on input by user. 
     {
+        
+        
         if(i==distIndex)
         {
             answerText.GetComponent<Text>().text = "Correct!";
+            answerText.GetComponent<Text>().color = Color.green;
             Invoke("ChooseNewPanel", 1);
         }
         else
         { 
-            answerText.GetComponent<Text>().text = "Wrong,Try Again";
-            Invoke("ChooseNewPanel", 1);
+            attempt++;
+            answerText.GetComponent<Text>().color = Color.red;
+            if (attempt == 3)
+            {
+                answerText.GetComponent<Text>().text = "Wrong Answer";
+                Invoke("ChooseNewPanel", 1);
+            }
+            else
+            {
+                int left = 3 - attempt;
+                answerText.GetComponent<Text>().text = "Wrong,Try Again \n Attempts Left: " + left.ToString();
+                Invoke("ClearText", 1);
+            }
         }
             
 
@@ -85,7 +100,9 @@ public class QuestionChoice : MonoBehaviour
         }
         questionText.GetComponent<Text>().text += "animal.";
 
-        answerText.GetComponent<Text>().text = "";                   //defaults answer textbox to empty space
+        attempt = 0;
+        
+        ClearText();                   
     }
 
 
@@ -103,5 +120,10 @@ public class QuestionChoice : MonoBehaviour
         distIndex = Random.Range(0, 2);
         SetQuestion(panelIndex, distIndex);
 
+    }
+
+    void ClearText()                                                    //defaults answer textbox to empty space
+    {
+        answerText.GetComponent<Text>().text = "";    
     }
 }
