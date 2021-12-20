@@ -7,32 +7,20 @@ public class Num1 : MonoBehaviour
 {
     public GameObject[] Panels;
     [HideInInspector] public int rnd;
-    public sum_manager script;
-    [HideInInspector] public Text Number1;
-    char temp;
-
 
     public void random()
     {
         rnd = Random.Range(0, 5);
-        //Debug.Log(rnd);
-        //Debug.Log("Num1" + rnd);
         Panels[rnd].SetActive(true);
     }
-    void Start()
+    void OnEnable()
     {
         random();
     }
-    void Update()
+
+    public void PanelUpdate()
     {
-        if (script.flag1 == 1)
-        {
-            Debug.Log("Flag");
-            Panels[rnd].SetActive(false);
-            script.flag1 = 0;
-            random();
-
-        }
+        Panels[rnd].SetActive(false);
+        random();
     }
-
 }

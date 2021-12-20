@@ -6,29 +6,21 @@ using UnityEngine.UI;
 public class Num2 : MonoBehaviour
 {
     public GameObject[] Panels;
-    [HideInInspector]public int rnd;
-    public sum_manager script2;
+    [HideInInspector] public int rnd;
 
     public void random()
     {
         rnd = Random.Range(0, 6);
-        //Debug.Log("Num2 " + rnd);
         Panels[rnd].SetActive(true);
     }
-    void Start()
+    void OnEnable()
     {
         random();
     }
 
-    void Update()
+    public void PanelUpdate()
     {
-        if (script2.flag == 1)
-        {
-           
-            Panels[rnd].SetActive(false);
-            script2.flag = 0;
-            random();
-        }
+        Panels[rnd].SetActive(false);
+        random();
     }
-
 }

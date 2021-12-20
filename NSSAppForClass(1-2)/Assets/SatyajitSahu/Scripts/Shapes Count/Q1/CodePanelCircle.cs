@@ -30,8 +30,8 @@ public class CodePanelCircle : MonoBehaviour
             text.WrongActive();
             text = FindObjectOfType<TextPanelManger>();
             text.CircleWrong();
-            Invoke("Cross",8.0f);
-            Invoke("CW", 8.0f);
+            //Invoke("Cross",8.0f);
+            //Invoke("CW", 8.0f);
         }
     }
 

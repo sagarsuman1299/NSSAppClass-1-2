@@ -8,13 +8,14 @@ public class pencil : MonoBehaviour
     public GameObject[] pencils1;
     public GameObject[] pencils2;
     int a, b, i;
-    public int questionNo; 
+    public int questionNo;
     public Text ans;
     public Text question;
+    private int wrongCount = 1;
 
     void Start()
     {
-        
+
         a = Random.Range(1, 10);
         b = Random.Range(0, a);
         if (questionNo == 1)
@@ -23,7 +24,7 @@ public class pencil : MonoBehaviour
         }
         else if (questionNo == 2)
         {
-            question.text = "Gaurav has " + (a+1) + " pencils. Akbar has " + (b+1) + " pencils.";
+            question.text = "Gaurav has " + (a + 1) + " pencils. Akbar has " + (b + 1) + " pencils.";
         }
         for (int i = 0; i <= a; i++)
         {
@@ -91,12 +92,24 @@ public class pencil : MonoBehaviour
         }
         else
         {
-            ans.text = "INCORRECT";
+            if (wrongCount == 3)
+            {
+                ans.text = "Correct Answer is : " + (a - b);
+                wrongCount = 1;
+                StartCoroutine(delay());
+
+            }
+            else
+            {
+                wrongCount++;
+                ans.text = "INCORRECT";
+                StartCoroutine(Wrongdelay());
+            }
         }
     }
     public void pencilgenerate()
     {
-        
+        wrongCount = 1;
         a = Random.Range(1, 10);
         b = Random.Range(0, a);
         if (questionNo == 1)
@@ -119,7 +132,7 @@ public class pencil : MonoBehaviour
 
     IEnumerator delay()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         for (int i = 0; i <= a; i++)
         {
             pencils1[i].SetActive(false);
@@ -131,6 +144,12 @@ public class pencil : MonoBehaviour
         ans.text = "";
         pencilgenerate();
     }
+    IEnumerator Wrongdelay()
+    {
+        yield return new WaitForSeconds(1);
 
+        ans.text = "";
+
+    }
 }
 

@@ -57,6 +57,12 @@ public class TextPanelManger : MonoBehaviour
     public GameObject maxQuestion;
     public GameObject minQuestion;
 
+    [Header("Buttons Next Question")]  //change2
+    public GameObject circleNext;
+    public GameObject triangleNext;
+    public GameObject squareNext;
+    public GameObject rectangleNext;
+
     QuestionChanger q;
 
     public void Correct()
@@ -167,12 +173,16 @@ public class TextPanelManger : MonoBehaviour
         questionImageReal.SetActive(false);
         questionImageCircle.SetActive(true);
         circleButton.SetActive(false);
+        circleNext.SetActive(true);  //change2
+
+        circleQuestion.SetActive(false); //change2
     }
     public void CircleWrongWrong()
     {
         questionImageReal.SetActive(true);
         questionImageCircle.SetActive(false);
         circleButton.SetActive(true);
+        circleNext.SetActive(false);  //change2
     }
 
     public void TriangleWrong()
@@ -180,12 +190,16 @@ public class TextPanelManger : MonoBehaviour
         questionImageReal.SetActive(false);
         questionImageTriangle.SetActive(true);
         triangleButton.SetActive(false);
+        triangleNext.SetActive(true);  //change2
+
+        triangleQuestion.SetActive(false); //change2
     }
     public void TriangleWrongWrong()
     {
         questionImageReal.SetActive(true);
         questionImageTriangle.SetActive(false);
         triangleButton.SetActive(true);
+        triangleNext.SetActive(false);    //change2
     }
 
     public void SquareWrong()
@@ -193,12 +207,16 @@ public class TextPanelManger : MonoBehaviour
         questionImageReal.SetActive(false);
         questionImageSquare.SetActive(true);
         squareButton.SetActive(false);
+        squareNext.SetActive(true);   //change2
+
+        squareQuestion.SetActive(false); //change2
     }
     public void SquareWrongWrong()
     {
         questionImageReal.SetActive(true);
         questionImageSquare.SetActive(false);
         squareButton.SetActive(true);
+        squareNext.SetActive(false);   //change2
     }
 
     public void RectangleWrong()
@@ -206,12 +224,16 @@ public class TextPanelManger : MonoBehaviour
         questionImageReal.SetActive(false);
         questionImageRectangle.SetActive(true);
         rectangleButton.SetActive(false);
+        rectangleNext.SetActive(true);   //change2
+
+        rectangleQuestion.SetActive(false); //change2
     }
     public void RectangleWrongWrong()
     {
         questionImageReal.SetActive(true);
         questionImageRectangle.SetActive(false);
         rectangleButton.SetActive(true);
+        rectangleNext.SetActive(false);  //change2
     }
 
     public void MaxWrong()
@@ -229,5 +251,58 @@ public class TextPanelManger : MonoBehaviour
     public void MinWrongWrong()
     {
         minPanel.SetActive(true);
+    }
+
+    public void circleNextQuestion()  //change2
+    {
+        wrongPanel.SetActive(false);
+        triangleButton.SetActive(true);
+        circleText.SetActive(false);
+        triangleText.SetActive(true);
+        circleQuestion.SetActive(false);
+        triangleQuestion.SetActive(true);
+        circleNext.SetActive(false);
+        questionImageCircle.SetActive(false);
+        questionImageReal.SetActive(true);
+    }
+    public void triangleNextQuestion()  //change2
+    {
+        wrongPanel.SetActive(false);
+        squareButton.SetActive(true);
+        triangleText.SetActive(false);
+        squareText.SetActive(true);
+        triangleQuestion.SetActive(false);
+        squareQuestion.SetActive(true);
+        triangleNext.SetActive(false);
+        questionImageTriangle.SetActive(false);
+        questionImageReal.SetActive(true);
+    }
+    public void squareNextQuestion()   //change2
+    {
+        wrongPanel.SetActive(false);
+        rectangleButton.SetActive(true);
+        squareText.SetActive(false);
+        rectangleText.SetActive(true);
+        squareQuestion.SetActive(false);
+        rectangleQuestion.SetActive(true);
+        squareNext.SetActive(false);
+        questionImageSquare.SetActive(false);
+        questionImageReal.SetActive(true);
+    }
+    public void rectangleNextQuestion()   //change2
+    {
+        wrongPanel.SetActive(false);
+        maxPanel.SetActive(true);
+        rectangleText.SetActive(false);
+        circleCorrect.SetActive(true);
+        triangleCorrect.SetActive(true);
+        squareCorrect.SetActive(true);
+        rectangleCorrect.SetActive(true);
+        maxMinText.SetActive(true);
+        rectangleQuestion.SetActive(false);
+        maxQuestion.SetActive(true);
+        rectangleNext.SetActive(false);
+
+        questionImageRectangle.SetActive(false);
     }
 }

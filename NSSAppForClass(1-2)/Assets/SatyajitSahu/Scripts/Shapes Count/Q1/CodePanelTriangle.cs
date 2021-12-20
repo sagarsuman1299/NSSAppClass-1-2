@@ -30,8 +30,8 @@ public class CodePanelTriangle : MonoBehaviour
             text.WrongActive();
             text = FindObjectOfType<TextPanelManger>();
             text.TriangleWrong();
-            Invoke("Cross", 8.0f);
-            Invoke("CW", 8.0f);
+            //Invoke("Cross", 8.0f);
+            //Invoke("CW", 8.0f);
         }
     }
 

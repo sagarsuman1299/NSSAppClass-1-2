@@ -30,8 +30,8 @@ public class CodePanelSquare : MonoBehaviour
             text.WrongActive();
             text = FindObjectOfType<TextPanelManger>();
             text.SquareWrong();
-            Invoke("Cross", 8.0f);
-            Invoke("CW", 8.0f);
+            //Invoke("Cross", 8.0f);
+            //Invoke("CW", 8.0f);
         }
     }
 

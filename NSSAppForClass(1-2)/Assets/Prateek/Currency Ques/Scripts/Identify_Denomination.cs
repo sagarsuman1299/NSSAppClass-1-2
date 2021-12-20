@@ -42,6 +42,7 @@ public class Identify_Denomination : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
+            Question_space[i].SetActive(true);
             Question_space[i].GetComponent<Button>().interactable = true;
         }
 
@@ -142,7 +143,10 @@ public class Identify_Denomination : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            Question_space[i].GetComponentInChildren<Text>().text = Denominations[Answer_index].ToString();
+            if (i != Correct_index)
+            {
+                Question_space[i].SetActive(false);
+            }
         }
 
         StartCoroutine(ResetQues());

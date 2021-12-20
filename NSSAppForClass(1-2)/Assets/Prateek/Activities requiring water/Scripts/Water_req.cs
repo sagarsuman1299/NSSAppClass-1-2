@@ -39,6 +39,7 @@ public class Water_req : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
+            Options[i].SetActive(true);
             Options[i].GetComponent<Button>().interactable = true;
         }
 
@@ -144,8 +145,10 @@ public class Water_req : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            Options[i].GetComponent<Image>().sprite = req_water[Answer_index];
-            Options[i].GetComponentInChildren<Text>().text = water_req[Answer_index];
+            if (i != Correct_index)
+            {
+                Options[i].SetActive(false);
+            }
         }
 
         StartCoroutine(ResetQues());

@@ -35,6 +35,7 @@ public class Identify_fake : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
+            Question_space[i].SetActive(true);
             Question_space[i].GetComponent<Button>().interactable = true;
         }
 
@@ -132,7 +133,10 @@ public class Identify_fake : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            Question_space[i].GetComponent<Image>().sprite = Other_curren[Answer_index];
+            if (i != Correct_index)
+            {
+                Question_space[i].SetActive(false);
+            }
         }
 
         StartCoroutine(ResetQues());

@@ -14,27 +14,27 @@ public class NumGenerate : MonoBehaviour
     OnClick onclick;
     [HideInInspector] public int flag;
     [HideInInspector] public int flag2;
-    private float Delay = 0.5f;
+    private float delay = 0.5f;
     int tens;
     int units;
     public Image Calc;
     public Sprite correct;
     public Sprite wrong;
-    //public Image[] obj;
-    //public Sprite[] sprite1;
-    //public Sprite[] sprite2;
+
+    private int wrongTensCount = 1;
+    private int wrongOnesCount = 1;
 
     public void random()
     {
         rnd = Random.Range(1, 100);
         units = rnd % 10;
         tens = rnd / 10;
-        Debug.Log("Tens "+tens);
-        Debug.Log("Units"+ units);
         flag = 0;
         flag2 = 0;
-        //SpriteChanger();
-        for (int i =0; i<tens; i++)
+        wrongOnesCount = 1;
+        wrongTensCount = 1;
+
+        for (int i = 0; i < tens; i++)
             Panel1[i].SetActive(true);
         for (int j = 0; j < units; j++)
             Panel2[j].SetActive(true);
@@ -44,24 +44,27 @@ public class NumGenerate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        random();
+
         flag = 0;
         flag2 = 0;
-        
 
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        if ((flag == 1) && (flag2 ==1))
-        {
-            for (int i = 0; i < tens; i++)
-                Panel1[i].SetActive(false);
-            for (int j = 0; j < units; j++)
-                Panel2[j].SetActive(false);
-            random();
-        }
+        random();
+    }
+
+    // Update is called once per frame
+    void Change()
+    {
+
+        for (int i = 0; i < tens; i++)
+            Panel1[i].SetActive(false);
+        for (int j = 0; j < units; j++)
+            Panel2[j].SetActive(false);
+        random();
+
     }
 
 
@@ -69,66 +72,81 @@ public class NumGenerate : MonoBehaviour
     {
         if (a == tens)
         {
-
-            Debug.Log("inside tens");
+            flag = 1;
             StartCoroutine(DelayCorrect());
             Enter.text = "How many Ones are there?";
-            flag = 1;
         }
         else
         {
-            Debug.Log("Wrong Answer");
-            StartCoroutine(DelayWrong());
+            if (wrongTensCount == 3)
+            {
+                flag = 1;
+                Enter.text = "Correct Answer is : " + tens;
+                StartCoroutine(NextTens());
+                wrongTensCount = 0;
+            }
+            else
+            {
+                wrongTensCount++;
+                StartCoroutine(DelayWrong());
+            }
+
         }
     }
     public void forunits(int a)
     {
-        
+
         if (a == units)
         {
             flag2 = 1;
-            Debug.Log("inside once");
-
             StartCoroutine(DelayCorrect());
         }
         else
         {
-            Debug.Log("Wrong Answer");
-            StartCoroutine(DelayWrong());
+            if (wrongOnesCount == 3)
+            {
+                Enter.text = "Correct Answer is : " + units;
+                StartCoroutine(NextOnes());
+                wrongOnesCount = 0;
+
+            }
+            else
+            {
+                wrongOnesCount++;
+                StartCoroutine(DelayWrong());
+            }
         }
     }
 
-    /*
-    void SpriteChanger()
-    {
-        int r = Random.Range(0, sprite1.Length);
-        for (int i = 0; i<9 ; i++)
-        {
-            obj[i].sprite = sprite1[r];
-            obj[i+9].sprite = sprite2[r];
-        }
-    }
-    */
 
     IEnumerator DelayCorrect()
     {
         Calc.sprite = correct;
-
         Correct.SetActive(true);
-        yield return new WaitForSeconds(Delay);
-        Debug.Log("Inside Delay");
+        yield return new WaitForSeconds(delay);
         Correct.SetActive(false);
+        if (flag2 == 1)
+        {
+            Change();
+        }
     }
 
     IEnumerator DelayWrong()
     {
         Calc.sprite = wrong;
         Wrong.SetActive(true);
-        yield return new WaitForSeconds(Delay);
-        Debug.Log("Inside Delay");
+        yield return new WaitForSeconds(delay);
         Wrong.SetActive(false);
     }
-
-
-
+    IEnumerator NextTens()
+    {
+        yield return new WaitForSeconds(2.0f);
+        Enter.text = "How many Ones are there?";
+    }
+    IEnumerator NextOnes()
+    {
+        yield return new WaitForSeconds(2.0f);
+        Enter.text = "How many Tens are there?";
+        Change();
+    }
 }

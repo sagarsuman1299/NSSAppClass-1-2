@@ -10,11 +10,14 @@ public class CheckValue : MonoBehaviour
     public Pendulum pp;
     public TextMeshProUGUI tmp;
     public Text txt;
+    public Text showAnswer;
+    int wrongCount = 1;
 
     string ans;
 
     private void OnEnable()
     {
+
         tmp.text = "";
     }
 
@@ -23,16 +26,29 @@ public class CheckValue : MonoBehaviour
         if (str == ((pp.total) + ""))
         {
             tmp.text = "";
-            ans= "CORRECT";
+            ans = "CORRECT";
             StartCoroutine("showCorrect");
             //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         else
         {
-            tmp.text = "";
-            ans= "INCORRECT";
-            txt.text = "";
-            StartCoroutine("showRes");
+            if (wrongCount == 3)
+            {
+                showAnswer.text = "Correct Answer is : " + (pp.total) + "";
+                wrongCount = 1;
+                StartCoroutine("Next");
+
+            }
+            else
+            {
+                wrongCount++;
+                tmp.text = "";
+                ans = "INCORRECT";
+                txt.text = "";
+                StartCoroutine("showRes");
+
+            }
+
         }
     }
 
@@ -47,8 +63,18 @@ public class CheckValue : MonoBehaviour
     {
         tmp.text = ans;
         yield return new WaitForSeconds(2);
+        wrongCount = 1;
         tmp.text = "";
         txt.text = "";
+        pp.OnEnable();
+    }
+    IEnumerator Next()
+    {
+
+        yield return new WaitForSeconds(2);
+        tmp.text = "";
+        txt.text = "";
+        showAnswer.text = "";
         pp.OnEnable();
     }
 }

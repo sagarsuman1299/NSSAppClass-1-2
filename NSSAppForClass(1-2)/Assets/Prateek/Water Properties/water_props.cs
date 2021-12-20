@@ -41,6 +41,9 @@ public class water_props : MonoBehaviour
 
         if(Ques_num != Prev_ques)
         {
+            Opt_1.SetActive(true);
+            Opt_2.SetActive(true);
+
             Opt_1.GetComponent<Button>().interactable = true;
             Opt_2.GetComponent<Button>().interactable = true;
 
@@ -139,7 +142,14 @@ public class water_props : MonoBehaviour
             {
                 Win_txt.GetComponent<Text>().text = "Wrong answer";
                 {
-                    StartCoroutine(ViewAns());
+                    if (Correct_btn == 1)
+                    {
+                        StartCoroutine(ViewAns(Opt_1, Opt_2));
+                    }
+                    else
+                    {
+                        StartCoroutine(ViewAns(Opt_2, Opt_1));
+                    }
                 }
             }
         }
@@ -157,7 +167,7 @@ public class water_props : MonoBehaviour
         Routine_check = true;
     }
 
-    IEnumerator ViewAns()
+    IEnumerator ViewAns(GameObject correct, GameObject wrong)
     {
         Routine_check = false;
 
@@ -165,26 +175,7 @@ public class water_props : MonoBehaviour
 
         Win_txt.GetComponent<Text>().text = "Right answer is:";
 
-        if (Ques_num == 1)
-        {
-            Opt_1.GetComponentInChildren<Text>().text = "No colour";
-            Opt_2.GetComponentInChildren<Text>().text = "No colour";
-        }
-        else if (Ques_num == 2)
-        {
-            Opt_1.GetComponentInChildren<Text>().text = "No taste";
-            Opt_2.GetComponentInChildren<Text>().text = "No taste";
-        }
-        else if (Ques_num == 3)
-        {
-            Opt_1.GetComponentInChildren<Text>().text = "No smell";
-            Opt_2.GetComponentInChildren<Text>().text = "No smell";
-        }
-        else if (Ques_num == 4)
-        {
-            Opt_1.GetComponentInChildren<Text>().text = "No shape";
-            Opt_2.GetComponentInChildren<Text>().text = "No shape";
-        }
+        wrong.SetActive(false);
 
         StartCoroutine(ResetQues());
 
