@@ -14,7 +14,6 @@ public class Count_Leaves : MonoBehaviour
     public GameObject textAr;           //txt area to print input
     public GameObject winTxt;           //shows correctness of ans
 
-    int count = 0;                      //Used to know how many digits have been entered
     int WrongCount = 0;                 //Checks how many times the user has provided wrong answer
     bool Routine_check = true;          //Its to keep the code from executing over and over again while the couroutine waits
 
@@ -34,7 +33,6 @@ public class Count_Leaves : MonoBehaviour
     ////////////////////////////////////////////////
     public void StartFun()
     {
-        count = 0;
         textAr.GetComponent<UnityEngine.UI.Text>().text = "";
         winTxt.GetComponent<UnityEngine.UI.Text>().text = "";
 
@@ -123,157 +121,59 @@ public class Count_Leaves : MonoBehaviour
     ////////////////////////////////////////////////////////////////////////////
     public void Press1()
     {
-        if(count < 2)
-        {
-            textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 1.ToString();
-            count += 1;
-        }
-
-        if(count == 2)
-        {
-            WinCheck();
-        }
+        textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 1.ToString();
     }
     public void Press2()
     {
-        if(count < 2)
-        {
-            textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 2.ToString();
-            count += 1;
-        }
-
-        if(count == 2)
-        {
-            WinCheck();
-        }
+        textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 2.ToString();
     }
     public void Press3()
     {
-        if(count < 2)
-        {
-            textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 3.ToString();
-            count += 1;
-        }
-
-        if(count == 2)
-        {
-            WinCheck();
-        }
+        textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 3.ToString();
     }
     public void Press4()
     {
-        if(count < 2)
-        {
-            textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 4.ToString();
-            count += 1;
-        }
-
-        if(count == 2)
-        {
-            WinCheck();
-        }
+        textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 4.ToString();
     }
     public void Press5()
     {
-        if(count < 2)
-        {
-            textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 5.ToString();
-            count += 1;
-        }
-
-        if(count == 2)
-        {
-            WinCheck();
-        }
+        textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 5.ToString();
     }
     public void Press6()
     {
-        if(count < 2)
-        {
-            textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 6.ToString();
-            count += 1;
-        }
-
-        if(count == 2)
-        {
-            WinCheck();
-        }
+        textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 6.ToString();
     }
     public void Press7()
     {
-        if(count < 2)
-        {
-            textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 7.ToString();
-            count += 1;
-        }
-
-        if(count == 2)
-        {
-            WinCheck();
-        }
+        textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 7.ToString();
     }
     public void Press8()
     {
-        if(count < 2)
-        {
-            textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 8.ToString();
-            count += 1;
-        }
-
-        if(count == 2)
-        {
-            WinCheck();
-        }
+        textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 8.ToString();
     }
     public void Press9()
     {
-        if(count < 2)
-        {
-            textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 9.ToString();
-            count += 1;
-        }
-
-        if(count == 2)
-        {
-            WinCheck();
-        }
+        textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 9.ToString();
     }
     public void Press0()
     {
-        if(Generated == 100)
-        {
-            if(count < 3)
-            {
-                textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 0.ToString();
-                count += 1;
-            }
-
-            if(count == 3)
-            {
-                WinCheck();
-            }
-        }
-        else
-        {
-            if(count < 2)
-            {
-                textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 0.ToString();
-                count += 1;
-            }
-
-            if(count == 2)
-            {
-                WinCheck();
-            }
-        }
-
-        
+        textAr.GetComponent<UnityEngine.UI.Text>().text = textAr.GetComponent<UnityEngine.UI.Text>().text + 0.ToString();
     }
 
     public void Erase()
     {
         textAr.GetComponent<UnityEngine.UI.Text>().text = "";
-        count = 0;
+    }
+    public void Check()
+    {
+        if(textAr.GetComponent<UnityEngine.UI.Text>().text == "")
+        {
+            winTxt.GetComponent<UnityEngine.UI.Text>().text = "Enter a number";
+        }
+        else
+        {
+            WinCheck();
+        }   
     }
     ////////////// For pressing the diff buttons on keypad end ///////////////
     //////////////////////////////////////////////////////////////////////////

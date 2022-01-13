@@ -1,7 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
+
 
 public class Line : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler
 {
@@ -9,14 +10,10 @@ public class Line : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDrag
     
     private Managerr manager;
     public LineRenderer line;
-    
-    
-    
 
     public void Awake()
     {
         manager = GameObject.Find("Managerr").GetComponent<Managerr>();
-        
     }
 
     
@@ -34,39 +31,38 @@ public class Line : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDrag
 
     }
 
-    public void DragStop(PointerEventData eventData, GameObject ans, GameObject qsn)
+    public void DragStop(PointerEventData eventData, GameObject qsn, GameObject ans)
     {
         Vector2 v = eventData.position;
-        
-        if (ans.CompareTag(qsn.tag))
+
+        if (ans.tag == "Background")
         {
-            
-            if (manager.tags.Contains(qsn.tag))
+            line.SetPosition(1, line.GetPosition(0));
+            StartCoroutine("stop");
+        }
+
+        else if (qsn.GetComponentInChildren<Text>().text == (ans.GetComponent<Text>().text))
+        {
+
+            if (manager.role_texts.Contains(ans.GetComponent<Text>().text))
             {
                 line.SetPosition(1, Cam(v));
                 manager.Delay_correct();
             }
             else
             {
-                manager.tags.Add(qsn.tag);
-                //manager.correct_count++;
-            
+                manager.role_texts.Add(ans.GetComponent<Text>().text);
                 line.SetPosition(1, Cam(v));
                 manager.Delay_correct();
             }
         }
-        else if (qsn.tag == "Background")
-        {
-            line.SetPosition(1, line.GetPosition(0));
-            StartCoroutine("stop");
-        }
-        else 
+        else
         {
             line.SetPosition(1, line.GetPosition(0));
             manager.Delay_wrong();
         }
-        
-           
+
+
     }
 
     public void OnPointerDown(PointerEventData eventData)
